@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NicheLab — Find Your Perfect Content Niche</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #080b14;
+  --bg2: #0c1020;
+  --card: #0f1525;
+  --card2: #131928;
+  --border: #1c2540;
+  --border2: #243058;
+  --purple: #7c5cfc;
+  --purple2: #9d7ffe;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --pink: #ec4899;
+  --green: #10b981;
+  --gold: #f59e0b;
+  --yt: #ff0000;
+  --tt: #ee1d52;
+  --ig: #e1306c;
+  --text: #e2e8f8;
+  --text2: #7889b0;
+  --text3: #4a5980;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+/* NOISE OVERLAY */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* GRID BG */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(124,92,252,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(124,92,252,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 40px;
+  background: rgba(8,11,20,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800;
+  background: linear-gradient(135deg, var(--purple2), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+.nav-logo span { opacity: 0.6; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+/* FIX #11 — nav-link is now a button to avoid href="#" scroll jump */
+.nav-link {
+  font-size: 13px; color: var(--text2); text-decoration: none;
+  padding: 6px 12px; transition: color 0.2s;
+  background: none; border: none; cursor: pointer; font-family: 'Outfit', sans-serif;
+}
+.nav-link:hover { color: var(--text); }
+.nav-btn {
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  border: none; color: #fff; padding: 9px 20px; border-radius: 8px;
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.nav-btn:hover { opacity: 0.85; }
+
+/* PAGES */
+.page { display: none; position: relative; z-index: 1; }
+.page.active { display: block; }
+
+/* ===== HOME PAGE ===== */
+#home { min-height: 100vh; display: flex; flex-direction: column; }
+
+.hero {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 120px 24px 80px;
+  position: relative;
+}
+.hero-glow {
+  position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(124,92,252,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(124,92,252,0.12); border: 1px solid rgba(124,92,252,0.3);
+  padding: 6px 16px; border-radius: 100px; margin-bottom: 32px;
+  font-size: 12px; color: var(--purple2); font-weight: 500; letter-spacing: 0.5px;
+}
+.hero-badge::before { content: '●'; font-size: 7px; animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(40px, 7vw, 80px);
+  font-weight: 800; line-height: 1.05;
+  letter-spacing: -2px; margin-bottom: 24px;
+  color: var(--text);
+}
+.hero h1 .grad {
+  background: linear-gradient(135deg, var(--purple2) 0%, var(--cyan) 50%, var(--pink) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 18px; color: var(--text2); max-width: 560px;
+  line-height: 1.7; margin-bottom: 48px; font-weight: 300;
+}
+
+/* SEARCH BOX */
+.search-box {
+  width: 100%; max-width: 680px; position: relative; margin-bottom: 20px;
+}
+.search-input {
+  width: 100%; padding: 20px 160px 20px 24px;
+  background: var(--card); border: 1.5px solid var(--border2);
+  border-radius: 16px; color: var(--text);
+  font-family: 'Outfit', sans-serif; font-size: 16px;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 4px rgba(124,92,252,0.12), 0 20px 60px rgba(0,0,0,0.4);
+}
+.search-input::placeholder { color: var(--text3); }
+.search-btn {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  border: none; color: #fff; padding: 12px 24px; border-radius: 10px;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: opacity 0.2s, transform 0.1s;
+}
+.search-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-50%) scale(1.02); }
+.search-btn:active:not(:disabled) { transform: translateY(-50%) scale(0.98); }
+.search-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.search-suggestions {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 16px;
+}
+.suggestion {
+  padding: 6px 14px; background: var(--card); border: 1px solid var(--border);
+  border-radius: 100px; font-size: 12px; color: var(--text2);
+  cursor: pointer; transition: all 0.2s;
+}
+.suggestion:hover { border-color: var(--purple); color: var(--purple2); background: rgba(124,92,252,0.08); }
+
+/* PLATFORMS */
+.platforms { display: flex; gap: 12px; justify-content: center; margin-top: 32px; }
+.platform-badge {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 100px;
+  font-size: 12px; font-weight: 500; border: 1px solid;
+}
+.platform-badge.yt { background: rgba(255,0,0,0.08); border-color: rgba(255,0,0,0.2); color: #ff6b6b; }
+.platform-badge.tt { background: rgba(238,29,82,0.08); border-color: rgba(238,29,82,0.2); color: #ff6b9d; }
+.platform-badge.ig { background: rgba(225,48,108,0.08); border-color: rgba(225,48,108,0.2); color: #f472b6; }
+
+/* STATS STRIP */
+.stats-strip {
+  display: flex; justify-content: center; gap: 64px; flex-wrap: wrap;
+  padding: 40px 24px; border-top: 1px solid var(--border);
+}
+.stat-item { text-align: center; }
+.stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 800; color: var(--text); }
+.stat-num span { background: linear-gradient(135deg, var(--purple2), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-label { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+/* HOW IT WORKS */
+.how-section { padding: 100px 40px; max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--purple2); margin-bottom: 16px; display: block; }
+.section-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 800; letter-spacing: -1px; margin-bottom: 64px; }
+.section-title span { background: linear-gradient(135deg, var(--purple2), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.step {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.step:hover { border-color: var(--border2); transform: translateY(-4px); }
+.step-num {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 64px; font-weight: 800;
+  color: rgba(124,92,252,0.1); position: absolute; top: 16px; right: 20px;
+  line-height: 1;
+}
+.step-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+.step h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.step p { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+/* ===== RESULTS PAGE ===== */
+#results { min-height: 100vh; padding: 100px 24px 60px; max-width: 1100px; margin: 0 auto; }
+
+.results-header { margin-bottom: 40px; }
+.results-query { font-size: 13px; color: var(--text2); margin-bottom: 8px; }
+.results-query span { color: var(--purple2); font-weight: 500; }
+.results-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+.results-overview { font-size: 16px; color: var(--text2); line-height: 1.7; max-width: 700px; margin-bottom: 32px; }
+
+/* QUICK STATS ROW */
+.quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.qs {
+  flex: 1; min-width: 140px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 20px;
+}
+.qs-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+.qs-val { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; }
+.qs-val.green { color: var(--green); }
+.qs-val.gold { color: var(--gold); }
+.qs-val.purple { color: var(--purple2); }
+.qs-val.blue { color: var(--blue); }
+.qs-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+/* PLATFORM TABS */
+.platform-tabs { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+.ptab {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--card); cursor: pointer; font-size: 14px; font-weight: 500;
+  color: var(--text2); transition: all 0.2s; font-family: 'Outfit', sans-serif;
+}
+.ptab.active.yt { background: rgba(255,0,0,0.1); border-color: rgba(255,0,0,0.3); color: #ff6b6b; }
+.ptab.active.tt { background: rgba(238,29,82,0.1); border-color: rgba(238,29,82,0.3); color: #ff6b9d; }
+.ptab.active.ig { background: rgba(225,48,108,0.1); border-color: rgba(225,48,108,0.3); color: #f472b6; }
+.ptab:hover:not(.active) { border-color: var(--border2); color: var(--text); }
+
+/* CONTENT CARDS */
+.content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+.content-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px; position: relative; overflow: hidden;
+}
+.content-card.full { grid-column: 1 / -1; }
+.cc-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.cc-label .dot { width: 6px; height: 6px; border-radius: 50%; }
+.dot-yt { background: var(--yt); }
+.dot-tt { background: var(--tt); }
+.dot-ig { background: var(--ig); }
+.dot-purple { background: var(--purple); }
+.dot-green { background: var(--green); }
+.dot-gold { background: var(--gold); }
+/* FIX #6 — Added missing .dot-cyan class */
+.dot-cyan { background: #22d3ee; }
+.cc-title { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+.cc-body { font-size: 14px; color: var(--text2); line-height: 1.75; }
+
+/* IDEAS LIST */
+.ideas-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ideas-list li {
+  display: flex; align-items: start; gap: 10px;
+  font-size: 14px; color: var(--text2); padding: 10px 14px;
+  background: var(--card2); border-radius: 8px; border: 1px solid var(--border);
+}
+.ideas-list li::before { content: '→'; color: var(--purple2); flex-shrink: 0; font-weight: 700; }
+
+/* BLUR LOCK */
+.blur-section {
+  position: relative; border-radius: 16px; overflow: hidden;
+  margin-bottom: 16px;
+}
+.blur-inner {
+  filter: blur(6px); pointer-events: none; user-select: none;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+}
+.blur-overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  background: rgba(8,11,20,0.7); backdrop-filter: blur(2px);
+  border-radius: 16px; text-align: center; padding: 20px;
+}
+.blur-overlay .lock-icon { font-size: 28px; }
+.blur-overlay h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; }
+.blur-overlay p { font-size: 13px; color: var(--text2); max-width: 280px; line-height: 1.5; }
+.upgrade-btn {
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  border: none; color: #fff; padding: 10px 24px; border-radius: 8px;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.upgrade-btn:hover { opacity: 0.85; }
+.upgrade-btn.gold-btn { background: linear-gradient(135deg, var(--gold), var(--pink)); }
+
+/* SCORE BAR */
+.score-bar { margin-bottom: 12px; }
+.score-bar-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--text2); margin-bottom: 6px; }
+.score-bar-track { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: 100px; transition: width 1s ease; }
+.fill-green { background: linear-gradient(90deg, var(--green), #34d399); }
+.fill-gold { background: linear-gradient(90deg, var(--gold), #fbbf24); }
+.fill-purple { background: linear-gradient(90deg, var(--purple), var(--cyan)); }
+.fill-red { background: linear-gradient(90deg, #ef4444, #f97316); }
+
+/* TAGS */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  padding: 5px 12px; border-radius: 100px;
+  font-size: 12px; font-weight: 500; border: 1px solid;
+}
+.tag-purple { background: rgba(124,92,252,0.1); border-color: rgba(124,92,252,0.25); color: var(--purple2); }
+.tag-green { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.25); color: var(--green); }
+.tag-gold { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.25); color: var(--gold); }
+.tag-blue { background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.25); color: var(--blue); }
+
+/* TIER BADGE */
+.tier-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px; font-weight: 600;
+}
+.tier-free { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
+.tier-plus { background: rgba(245,158,11,0.15); color: var(--gold); border: 1px solid rgba(245,158,11,0.25); }
+.tier-pro { background: rgba(124,92,252,0.15); color: var(--purple2); border: 1px solid rgba(124,92,252,0.25); }
+
+/* LOADING */
+.loading-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 60vh; gap: 20px;
+}
+.loader {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--purple);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; }
+.loading-sub { font-size: 14px; color: var(--text2); }
+
+/* ===== PRICING PAGE ===== */
+#pricing { min-height: 100vh; padding: 120px 24px 80px; }
+.pricing-header { text-align: center; margin-bottom: 64px; }
+.pricing-header h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(32px, 5vw, 56px); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; }
+.pricing-header h1 span { background: linear-gradient(135deg, var(--purple2), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.pricing-header p { font-size: 17px; color: var(--text2); max-width: 500px; margin: 0 auto; line-height: 1.7; font-weight: 300; }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto 80px; }
+.pricing-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 36px 32px;
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.pricing-card:hover { transform: translateY(-6px); }
+.pricing-card.popular {
+  border-color: var(--purple);
+  background: linear-gradient(135deg, rgba(124,92,252,0.08), var(--card));
+}
+.pricing-card.lifetime {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, rgba(245,158,11,0.06), var(--card));
+}
+.popular-badge {
+  position: absolute; top: 20px; right: 20px;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+}
+.lifetime-badge {
+  position: absolute; top: 20px; right: 20px;
+  background: linear-gradient(135deg, var(--gold), var(--pink));
+  color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+}
+.plan-name { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 12px; }
+.plan-price { font-family: 'Barlow Condensed', sans-serif; font-size: 52px; font-weight: 800; letter-spacing: -2px; color: var(--text); line-height: 1; margin-bottom: 4px; }
+.plan-price span { font-size: 20px; font-weight: 400; color: var(--text2); }
+.plan-period { font-size: 13px; color: var(--text2); margin-bottom: 28px; }
+.plan-desc { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.plan-features li { display: flex; align-items: start; gap: 10px; font-size: 14px; color: var(--text2); }
+.plan-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.plan-features li.locked-feat { color: var(--text3); }
+.plan-features li.locked-feat::before { content: '—'; color: var(--text3); }
+.plan-btn {
+  width: 100%; padding: 14px; border: none; border-radius: 10px;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: opacity 0.2s, transform 0.1s;
+}
+.plan-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-free { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+.btn-plus { background: linear-gradient(135deg, var(--gold), #f97316); color: #000; }
+.btn-pro { background: linear-gradient(135deg, var(--purple), var(--blue)); color: #fff; }
+.btn-lifetime { background: linear-gradient(135deg, var(--gold), var(--pink)); color: #fff; }
+
+/* COMPARISON TABLE */
+.compare-section { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.compare-section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; text-align: center; margin-bottom: 32px; letter-spacing: -0.5px; }
+.compare-table { width: 100%; border-collapse: collapse; }
+.compare-table th, .compare-table td { padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+.compare-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--text2); letter-spacing: 0.5px; }
+.compare-table th:first-child { width: 40%; }
+.compare-table td:first-child { color: var(--text); }
+.compare-table td:not(:first-child) { text-align: center; color: var(--text2); }
+.compare-table tr:hover td { background: rgba(124,92,252,0.03); }
+.check { color: var(--green); font-size: 16px; }
+.cross { color: var(--text3); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border); padding: 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px; position: relative; z-index: 1;
+  margin-top: 80px;
+}
+.footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; background: linear-gradient(135deg, var(--purple2), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+footer p { font-size: 12px; color: var(--text3); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { animation: fadeUp 0.6s ease both; }
+
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-link { display: none; }
+  .content-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+  .stats-strip { gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     NAV
+     FIX #11: Links are now <button> elements —
+     eliminates the href="#" scroll-jump bug
+============================================= -->
+<nav>
+  <div class="nav-logo" style="display:flex;align-items:center;gap:0">
+    <svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="ng1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c5cfc"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+        <linearGradient id="ng2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9d7ffe"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+      </defs>
+      <polygon points="40,8 62,16 68,40 58,62 34,66 14,54 10,30 22,12" fill="url(#ng1)" opacity="0.15"/>
+      <polygon points="40,8 62,16 68,40 58,62 34,66 14,54 10,30 22,12" fill="none" stroke="url(#ng1)" stroke-width="1.2" opacity="0.5"/>
+      <circle cx="40" cy="39" r="18" fill="url(#ng1)" opacity="0.08" stroke="url(#ng2)" stroke-width="0.8"/>
+      <rect x="33" y="20" width="14" height="7" rx="2" fill="url(#ng1)" opacity="0.9"/>
+      <rect x="31" y="18" width="18" height="5" rx="2.5" fill="url(#ng2)" opacity="0.95"/>
+      <path d="M33,27 L33,42 L22,57 Q20,61 24,63 L56,63 Q60,61 58,57 L47,42 L47,27 Z" fill="url(#ng1)" opacity="0.88"/>
+      <path d="M24,55 Q22,61 26,63 L54,63 Q58,61 56,55 L47,43 L33,43 Z" fill="#06b6d4" opacity="0.3"/>
+      <circle cx="35" cy="54" r="3" fill="#fff" opacity="0.4"/>
+      <circle cx="44" cy="58" r="2" fill="#fff" opacity="0.3"/>
+      <circle cx="62" cy="18" r="1.5" fill="#9d7ffe" opacity="0.7"/>
+      <circle cx="16" cy="22" r="1.2" fill="#06b6d4" opacity="0.6"/>
+    </svg>
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,#9d7ffe,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px;margin-left:2px">Niche</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:300;color:rgba(226,232,248,0.7);letter-spacing:-0.5px">Lab</span>
+  </div>
+  <div class="nav-right">
+    <button type="button" class="nav-link" onclick="showPage('home')">Home</button>
+    <button type="button" class="nav-link" onclick="showPage('pricing')">Pricing</button>
+    <button class="nav-btn" onclick="showPage('pricing')">Get Started</button>
+  </div>
+</nav>
+
+<!-- =============================================
+     HOME PAGE
+============================================= -->
+<div id="home" class="page active">
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-badge">⚡ Powered by AI + Human Analysis</div>
+    <h1>Find Niches That<br><span class="grad">Actually Blow Up.</span></h1>
+    <p class="hero-sub">Stop guessing what to post. NicheLab analyzes any content niche across YouTube, TikTok, and Instagram — and gives you everything you need to grow fast.</p>
+
+    <div class="search-box">
+      <input class="search-input" id="main-search" type="text" placeholder="Try 'budget cooking', 'dark psychology', 'car restoration'..." onkeydown="if(event.key==='Enter')doSearch()"/>
+      <button class="search-btn" onclick="doSearch()">Analyze →</button>
+    </div>
+
+    <div class="search-suggestions">
+      <!-- FIX #13: fillSearch() now calls doSearch() — chips trigger search directly -->
+      <span class="suggestion" onclick="fillSearch('Fitness for beginners')">💪 Fitness for beginners</span>
+      <span class="suggestion" onclick="fillSearch('True crime stories')">🔍 True crime stories</span>
+      <span class="suggestion" onclick="fillSearch('Personal finance tips')">💰 Personal finance tips</span>
+      <span class="suggestion" onclick="fillSearch('Gaming highlights')">🎮 Gaming highlights</span>
+      <span class="suggestion" onclick="fillSearch('DIY home improvement')">🔧 DIY home improvement</span>
+      <span class="suggestion" onclick="fillSearch('Cooking on a budget')">🍳 Cooking on a budget</span>
+      <span class="suggestion" onclick="fillSearch('Dark psychology')">🧠 Dark psychology</span>
+      <span class="suggestion" onclick="fillSearch('Car restoration')">🚗 Car restoration</span>
+      <span class="suggestion" onclick="fillSearch('Luxury travel')">✈️ Luxury travel</span>
+      <span class="suggestion" onclick="fillSearch('Anime reviews')">⚔️ Anime reviews</span>
+      <span class="suggestion" onclick="fillSearch('Real estate investing')">🏠 Real estate investing</span>
+      <span class="suggestion" onclick="fillSearch('Thrift flipping')">🛍️ Thrift flipping</span>
+    </div>
+
+    <!-- FIX #16: SVGs are decorative (aria-hidden); visible text labels the platform -->
+    <div class="platforms" style="margin-top:40px">
+      <div class="platform-badge yt" role="img" aria-label="YouTube">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff0000" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube
+      </div>
+      <div class="platform-badge tt" role="img" aria-label="TikTok">
+        <svg width="16" height="18" viewBox="0 0 24 24" fill="#ee1d52" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.16 8.16 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg>
+        TikTok
+      </div>
+      <div class="platform-badge ig" role="img" aria-label="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="url(#igGrad)">
+          <defs>
+            <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#f09433"/>
+              <stop offset="25%" style="stop-color:#e6683c"/>
+              <stop offset="50%" style="stop-color:#dc2743"/>
+              <stop offset="75%" style="stop-color:#cc2366"/>
+              <stop offset="100%" style="stop-color:#bc1888"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.162S15.403 5.838 12 5.838zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        Instagram
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-strip">
+    <div class="stat-item"><div class="stat-num"><span>1,200+</span></div><div class="stat-label">Niches Discovered</div></div>
+    <div class="stat-item"><div class="stat-num"><span>3</span></div><div class="stat-label">Platforms Covered</div></div>
+    <div class="stat-item"><div class="stat-num"><span>30+</span></div><div class="stat-label">Data Points Per Niche</div></div>
+    <div class="stat-item"><div class="stat-num"><span>AI</span>+<span style="font-size:24px">👤</span></div><div class="stat-label">AI & Human Analysis</div></div>
+  </div>
+
+  <section class="how-section">
+    <span class="section-label">How It Works</span>
+    <div class="section-title">Three steps to your <span>perfect niche</span></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><span class="step-icon">🔍</span><h3>Search Any Niche</h3><p>Type in any topic, idea, or keyword. NicheLab's AI analyzes it instantly across all three major platforms.</p></div>
+      <div class="step"><div class="step-num">2</div><span class="step-icon">📊</span><h3>Get Deep Data</h3><p>See competition scores, growth potential, content ideas, audience demographics, monetization potential, and more.</p></div>
+      <div class="step"><div class="step-num">3</div><span class="step-icon">🚀</span><h3>Start Creating</h3><p>Use your 30-day content calendar, viral video breakdown, and SEO keywords to hit the ground running.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">NicheLab</div>
+    <p>© 2025 NicheLab · Built for creators, by creators</p>
+    <p style="color:var(--text3)">⚡ Powered by AI + Human Analysis</p>
+  </footer>
+</div>
+
+<!-- RESULTS PAGE -->
+<div id="results" class="page">
+  <div id="results-content"></div>
+</div>
+
+<!-- =============================================
+     PRICING PAGE
+     FIX #7: Plan buttons now call startCheckout()
+     instead of looping back to showPage('pricing')
+============================================= -->
+<div id="pricing" class="page">
+  <div class="pricing-header">
+    <span class="section-label">Simple Pricing</span>
+    <h1>Invest in Your <span>Growth</span></h1>
+    <p>Start free. Upgrade when you're ready. Cancel anytime — except the Lifetime deal, that's yours forever.</p>
+  </div>
+
+  <div class="pricing-grid">
+    <!-- FREE -->
+    <div class="pricing-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">$<span style="-webkit-text-fill-color:var(--text)">0</span></div>
+      <div class="plan-period">forever free</div>
+      <div class="plan-desc">Get a taste of NicheLab. Great for exploring what the platform can do.</div>
+      <ul class="plan-features">
+        <li>Niche overview &amp; summary</li>
+        <li>Competition level (Low/Med/High)</li>
+        <li>3 content ideas per niche</li>
+        <li>1 trending angle</li>
+        <li class="locked-feat">Full platform breakdown</li>
+        <li class="locked-feat">30-day content calendar</li>
+        <li class="locked-feat">SEO keywords</li>
+        <li class="locked-feat">Revenue estimates</li>
+      </ul>
+      <button class="plan-btn btn-free" onclick="showPage('home')">Start Free</button>
+    </div>
+
+    <!-- PLUS -->
+    <div class="pricing-card">
+      <div class="plan-name">Plus</div>
+      <div class="plan-price">$9<span>.99</span></div>
+      <div class="plan-period">per month</div>
+      <div class="plan-desc">Perfect for creators getting started and wanting real data to guide their content strategy.</div>
+      <ul class="plan-features">
+        <li>Everything in Free</li>
+        <li>Full niche deep dive</li>
+        <li>10 content ideas + 5 trending angles</li>
+        <li>Best posting times (all 3 platforms)</li>
+        <li>Top 3 sub-niches to explore</li>
+        <li>Competition score with explanation</li>
+        <li>Difficulty rating for beginners</li>
+        <li class="locked-feat">30-day content calendar</li>
+        <li class="locked-feat">Revenue estimates &amp; brand deals</li>
+      </ul>
+      <button class="plan-btn btn-plus" onclick="startCheckout('plus')">Get Plus →</button>
+    </div>
+
+    <!-- PRO -->
+    <div class="pricing-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">$24<span>.99</span></div>
+      <div class="plan-period">per month</div>
+      <div class="plan-desc">For serious creators who want every advantage. Full data, full strategy, full growth.</div>
+      <ul class="plan-features">
+        <li>Everything in Plus</li>
+        <li>25 content ideas + suggested titles</li>
+        <li>30-day content calendar</li>
+        <li>Viral video breakdown</li>
+        <li>Revenue &amp; monetization estimates</li>
+        <li>Brand deal likelihood score</li>
+        <li>Audience demographics</li>
+        <li>SEO keywords for titles &amp; descriptions</li>
+        <li>Competitor analysis tips</li>
+      </ul>
+      <button class="plan-btn btn-pro" onclick="startCheckout('pro')">Get Pro →</button>
+    </div>
+
+    <!-- LIFETIME -->
+    <div class="pricing-card lifetime">
+      <div class="lifetime-badge">Best Value</div>
+      <div class="plan-name">Lifetime</div>
+      <div class="plan-price">$49<span>.99</span></div>
+      <div class="plan-period">one-time payment · yours forever</div>
+      <div class="plan-desc">Pay once, use NicheLab Pro forever. No monthly charges, no renewals, no limits.</div>
+      <ul class="plan-features">
+        <li>Everything in Pro</li>
+        <li>Never pay again</li>
+        <li>All future features included</li>
+        <li>Priority support</li>
+        <li>Early access to new tools</li>
+      </ul>
+      <button class="plan-btn btn-lifetime" onclick="startCheckout('lifetime')">Get Lifetime Deal →</button>
+    </div>
+  </div>
+
+  <div class="compare-section">
+    <h2>Full Feature Comparison</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Free</th>
+          <th>Plus</th>
+          <th>Pro</th>
+          <th>Lifetime</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Niche overview &amp; summary</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Competition level</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Content ideas</td><td>3</td><td>10</td><td>25</td><td>25</td></tr>
+        <tr><td>Trending angles</td><td>1</td><td>5</td><td>10+</td><td>10+</td></tr>
+        <tr><td>Full platform breakdown (YT/TT/IG)</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Best posting times</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Sub-niches to explore</td><td class="cross">—</td><td>3</td><td>10</td><td>10</td></tr>
+        <tr><td>Beginner difficulty rating</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>30-day content calendar</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Viral video breakdown</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Revenue &amp; monetization estimates</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Brand deal likelihood score</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>SEO keywords</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Audience demographics</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Competitor analysis tips</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <div class="footer-logo">NicheLab</div>
+    <p>© 2025 NicheLab · All Rights Reserved</p>
+    <p>hello@nichelab.io</p>
+  </footer>
+</div>
+
+<script>
+// =============================================
+// FIX #4 — XSS PROTECTION
+// Escape all user/AI-controlled strings before
+// inserting them into innerHTML
+// =============================================
+function escapeHTML(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// =============================================
+// FIX #3 — USER TIER
+// Defaults to 'free' for all anonymous visitors.
+// Replace window.currentUser with real auth when ready.
+// Do NOT rely on localStorage for real payment entitlement —
+// it is client-controllable and not secure for subscriptions.
+// =============================================
+function getUserTier() {
+  return (window.currentUser && window.currentUser.tier)
+    || localStorage.getItem('nlTier')
+    || 'free';
+}
+
+// =============================================
+// PAGE ROUTING
+// =============================================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// FIX #13 — fillSearch now triggers doSearch directly
+function fillSearch(text) {
+  document.getElementById('main-search').value = text;
+  doSearch();
+}
+
+// =============================================
+// FIX #7 — CHECKOUT PLACEHOLDER
+// TODO: Replace each case with your real Stripe/
+// LemonSqueezy/PayPal checkout URL before launch.
+// Example: window.location.href = 'https://buy.stripe.com/your-link';
+// =============================================
+function startCheckout(plan) {
+  // Placeholder — wire up real payment links here
+  alert(plan.charAt(0).toUpperCase() + plan.slice(1) + ' checkout is not connected yet.\nAdd your payment URL inside startCheckout() in the script.');
+}
+
+// =============================================
+// FIX #9 — SEARCH STATE LOCK
+// Prevents duplicate parallel API calls on rapid clicks
+// =============================================
+let isSearching = false;
+let searchRequestId = 0;
+
+function doSearch() {
+  if (isSearching) return; // Block duplicate submissions
+
+  const raw = document.getElementById('main-search').value.trim();
+  const query = raw.slice(0, 200); // Reasonable length cap
+  if (!query) return;
+
+  isSearching = true;
+  const currentId = ++searchRequestId;
+
+  // Disable button during search
+  const btn = document.querySelector('.search-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Analyzing...'; }
+
+  showPage('results');
+  showLoading(query);
+
+  fetchNicheData(query, currentId).finally(() => {
+    isSearching = false;
+    if (btn) { btn.disabled = false; btn.textContent = 'Analyze →'; }
+  });
+}
+
+// =============================================
+// LOADING STATE
+// FIX #4 — query is escaped before innerHTML injection
+// =============================================
+function showLoading(query) {
+  document.getElementById('results-content').innerHTML = `
+    <div class="loading-state">
+      <div class="loader"></div>
+      <div class="loading-text">Analyzing &ldquo;${escapeHTML(query)}&rdquo;</div>
+      <div class="loading-sub">Scanning YouTube, TikTok &amp; Instagram trends...</div>
+    </div>`;
+}
+
+// =============================================
+// FIX #12 + #17 — JSON REPAIR (improved)
+// - Removed /m multiline flag so $ matches end-of-string
+// - Removed the redundant first trailing-comma strip;
+//   the single pass after bracket closure covers both cases
+// =============================================
+function repairJSON(str) {
+  try { JSON.parse(str); return str; } catch(e) {}
+
+  let s = str;
+
+  // Fix truncated string at end-of-string (no /m flag — $ means EOF here)
+  s = s.replace(/"([^"]*)$/, '"$1"');
+
+  // Count unmatched brackets and close them
+  let opens = 0, openBraces = 0;
+  for (const c of s) {
+    if      (c === '[') opens++;
+    else if (c === ']') opens--;
+    else if (c === '{') openBraces++;
+    else if (c === '}') openBraces--;
+  }
+  while (opens > 0)      { s += ']'; opens--; }
+  while (openBraces > 0) { s += '}'; openBraces--; }
+
+  // Single trailing-comma removal — covers both pre-existing and newly added brackets
+  s = s.replace(/,\s*([\]}])/g, '$1');
+
+  try { JSON.parse(s); return s; } catch(e) {}
+
+  // Last resort — truncate to last complete key-value pair
+  const lastGood = s.lastIndexOf('",');
+  if (lastGood > 0) {
+    s = s.substring(0, lastGood + 1);
+    let o = 0, ob = 0;
+    for (const c of s) {
+      if      (c === '[') o++;
+      else if (c === ']') o--;
+      else if (c === '{') ob++;
+      else if (c === '}') ob--;
+    }
+    while (o > 0)  { s += ']'; o--; }
+    while (ob > 0) { s += '}'; ob--; }
+    s = s.replace(/,\s*([\]}])/g, '$1');
+  }
+
+  return s;
+}
+
+// =============================================
+// FIX #8 — DATA NORMALIZER
+// Safe defaults for every field — no AI response
+// can crash the UI, even if completely malformed
+// =============================================
+function normalizeData(raw) {
+  const num = (v, fb = 0) => Math.min(100, Math.max(0, Number(v) || fb));
+  const str = (v) => String(v ?? '');
+  const arr = (v) => Array.isArray(v) ? v.map(str) : [];
+  const obj = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? v : {};
+
+  const yt = obj(raw.youtube);
+  const tt = obj(raw.tiktok);
+  const ig = obj(raw.instagram);
+
+  return {
+    niche:            str(raw.niche),
+    overview:         str(raw.overview),
+    competition:      str(raw.competition) || 'Medium',
+    competitionScore: num(raw.competitionScore, 50),
+    growthScore:      num(raw.growthScore, 50),
+    beginnerScore:    num(raw.beginnerScore, 50),
+    monetizationScore:num(raw.monetizationScore, 50),
+    audienceSize:     str(raw.audienceSize),
+    avgViews:         str(raw.avgViews),
+    topAgeRange:      str(raw.topAgeRange),
+    freeIdeas:        arr(raw.freeIdeas),
+    freeTrend:        str(raw.freeTrend),
+    plusIdeas:        arr(raw.plusIdeas),
+    subNiches:        arr(raw.subNiches),
+    youtube: {
+      potential:      str(yt.potential)  || 'Medium',
+      bestFormats:    arr(yt.bestFormats),
+      bestPostTimes:  str(yt.bestPostTimes),
+      avgMonetization:str(yt.avgMonetization),
+      growthSpeed:    str(yt.growthSpeed)
+    },
+    tiktok: {
+      potential:      str(tt.potential)  || 'Medium',
+      bestFormats:    arr(tt.bestFormats),
+      bestPostTimes:  str(tt.bestPostTimes),
+      viralChance:    str(tt.viralChance),
+      growthSpeed:    str(tt.growthSpeed)
+    },
+    instagram: {
+      potential:      str(ig.potential)  || 'Medium',
+      reelsVsFeed:    str(ig.reelsVsFeed)
+    },
+    proIdeas:         arr(raw.proIdeas),
+    viralBreakdown:   str(raw.viralBreakdown),
+    revenueEstimate:  str(raw.revenueEstimate),
+    brandDealScore:   num(raw.brandDealScore, 50),
+    brandTypes:       arr(raw.brandTypes),
+    seoKeywords:      arr(raw.seoKeywords),
+    competitorTips:   str(raw.competitorTips),
+    calendar: Array.isArray(raw.calendar) ? raw.calendar.map(w => ({
+      week:  Number(w && w.week) || 0,
+      theme: str(w && w.theme),
+      posts: arr(w && w.posts)
+    })) : []
+  };
+}
+
+// =============================================
+// FIX #1 + #2 — API CALLS VIA BACKEND PROXY
+// The API key is GONE from the frontend entirely.
+// All Anthropic calls go through /api/analyze.
+// DEPLOYMENT: Set ANTHROPIC_API_KEY in Netlify env vars.
+// SECURITY:   Rotate the old exposed key immediately.
+// =============================================
+async function fetchNicheData(query, requestId) {
+  const systemPrompt = `You are NicheLab, an expert content niche analyst for YouTube, TikTok, and Instagram. You know every niche imaginable. Always respond with ONLY a raw JSON object — no markdown, no backticks, no explanation, nothing outside the JSON.`;
+
+  const prompt1 = `Analyze this content niche: "${query}"\n\nRespond with ONLY this JSON object, filled with real data. Keep every string under 80 characters:\n{"niche":"","tagline":"","overview":"","competition":"Medium","competitionScore":60,"growthScore":70,"beginnerScore":65,"monetizationScore":70,"audienceSize":"","avgViews":"","topAgeRange":"","primaryGender":"","freeIdeas":["","",""],"freeTrend":"","plusIdeas":["","","","","","","","","",""],"plusTrends":["","","",""],"subNiches":["","","",""],"youtube":{"potential":"High","bestFormats":["","",""],"bestPostTimes":"","avgMonetization":"","growthSpeed":"Fast"},"tiktok":{"potential":"High","bestFormats":["",""],"bestPostTimes":"","viralChance":"High","growthSpeed":"Fast"},"instagram":{"potential":"Medium","bestFormats":["",""],"bestPostTimes":"","reelsVsFeed":"","growthSpeed":"Moderate"}}`;
+
+  const prompt2 = `You are analyzing the content niche: "${query}" for a pro creator tool.\n\nRespond with ONLY this JSON object. Keep every string under 80 characters:\n{"proIdeas":["","","","","","","","","","","","","","",""],"viralBreakdown":"","revenueEstimate":"","brandDealScore":70,"brandTypes":["","",""],"seoKeywords":["","","","","",""],"competitorTips":"","calendar":[{"week":1,"theme":"Foundation Week","posts":["Day 1: ","Day 3: ","Day 5: "]},{"week":2,"theme":"Growth Week","posts":["Day 8: ","Day 10: ","Day 12: "]},{"week":3,"theme":"Engagement Week","posts":["Day 15: ","Day 17: ","Day 19: "]},{"week":4,"theme":"Viral Push Week","posts":["Day 22: ","Day 24: ","Day 26: "]}]}`;
+
+  // Calls /api/analyze (Netlify redirect → serverless function)
+  async function callAPI(prompt) {
+    const res = await fetch('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, systemPrompt, maxTokens: 2000 })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      // Server already sanitized this message — safe to show
+      throw new Error(err.error || 'Request failed. Please try again.');
+    }
+
+    const data = await res.json();
+    const text = (data.content || []).map(b => b.text || '').join('');
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('Invalid analysis response. Please try again.');
+    return JSON.parse(repairJSON(match[0]));
+  }
+
+  try {
+    const [basic, pro] = await Promise.all([callAPI(prompt1), callAPI(prompt2)]);
+
+    // FIX #9 — ignore stale responses if a newer search fired
+    if (requestId !== searchRequestId) return;
+
+    renderResults({ ...basic, ...pro }, getUserTier());
+  } catch(err) {
+    if (requestId !== searchRequestId) return;
+
+    // FIX #10 — log full error for devs, show friendly message to users
+    console.error('[NicheLab] fetchNicheData error:', err);
+
+    const msg = String(err.message || '');
+    let friendly = 'Something went wrong while analyzing your niche. Please try again.';
+    if (msg.includes('429') || msg.toLowerCase().includes('rate limit')) {
+      friendly = 'Too many requests. Please wait a moment and try again.';
+    } else if (msg.includes('401') || msg.includes('403') || msg.includes('configured')) {
+      friendly = 'The analysis service is not configured correctly. Please contact support.';
+    } else if (msg.toLowerCase().includes('network') || msg.includes('Failed to fetch')) {
+      friendly = 'Network issue. Check your connection and try again.';
+    }
+
+    document.getElementById('results-content').innerHTML = `
+      <div style="text-align:center;padding:80px 24px;max-width:500px;margin:0 auto;">
+        <div style="font-size:48px;margin-bottom:16px">⚠️</div>
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:28px;margin-bottom:12px">Analysis Failed</h2>
+        <p style="color:var(--text2);margin-bottom:24px;line-height:1.6">${escapeHTML(friendly)}</p>
+        <button class="upgrade-btn" onclick="showPage('home')">← Try Again</button>
+      </div>`;
+  }
+}
+
+// =============================================
+// RENDER RESULTS
+// FIX #4:  All d.* fields wrapped in escapeHTML()
+// FIX #8:  Data normalized before use — no crashes
+// FIX #14: uid suffix makes SVG gradient IDs unique
+//          per render — prevents duplicate-ID collisions
+// =============================================
+function renderResults(rawData, tier) {
+  const d = normalizeData(rawData);
+  const e = escapeHTML; // Shorthand alias
+  const isPro  = tier === 'pro'  || tier === 'lifetime';
+  const isPlus = tier === 'plus' || isPro;
+
+  // FIX #14 — unique suffix for every render
+  const uid = 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+  const compColor = { 'Low':'green','Medium':'gold','High':'red','Very High':'red' }[d.competition] || 'gold';
+
+  function scoreBar(label, score, colorClass) {
+    return `<div class="score-bar">
+      <div class="score-bar-label"><span>${e(label)}</span><span style="color:var(--text)">${score}/100</span></div>
+      <div class="score-bar-track"><div class="score-bar-fill fill-${colorClass}" style="width:${score}%"></div></div>
+    </div>`;
+  }
+
+  function blurCard(tierKey, title, icon, preview, btnLabel) {
+    const extraClass = tierKey === 'plus' ? 'gold-btn' : '';
+    const btnTxt = tierKey === 'plus' ? 'Upgrade to Plus ✦' : 'Upgrade to Pro ◆';
+    return `<div class="blur-section">
+      <div class="blur-inner">
+        <div class="cc-label"><span class="dot dot-purple"></span>${e(title)}</div>
+        <div class="cc-title">🔒 ${e(title)}</div>
+        <div class="cc-body">${e(preview)}</div>
+      </div>
+      <div class="blur-overlay">
+        <div class="lock-icon">🔒</div>
+        <h4>${e(title)}</h4>
+        <p>Unlock this with <strong>${e(btnLabel)}</strong> to see ${e(title.toLowerCase())} for this niche.</p>
+        <button class="upgrade-btn ${extraClass}" onclick="showPage('pricing')">${btnTxt}</button>
+      </div>
+    </div>`;
+  }
+
+  const ytColor = d.youtube.potential === 'High' ? 'green' : d.youtube.potential === 'Medium' ? 'gold' : 'blue';
+  const ttColor = d.tiktok.potential  === 'High' ? 'green' : d.tiktok.potential  === 'Medium' ? 'gold' : 'blue';
+
+  const html = `
+  <div style="max-width:1100px;margin:0 auto;padding:100px 24px 60px;">
+    <button onclick="showPage('home')" style="background:none;border:1px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;margin-bottom:32px;font-size:13px;">← New Search</button>
+
+    <div class="results-header fade-up">
+      <div class="results-query">Results for <span>&ldquo;${e(d.niche)}&rdquo;</span> &nbsp;·&nbsp; <span style="color:var(--purple2);font-size:12px">⚡ AI + Human Analysis</span></div>
+      <div class="results-title">${e(d.niche)}</div>
+      <div class="results-overview">${e(d.overview)}</div>
+      <div class="tags">
+        <span class="tag tag-${compColor}">Competition: ${e(d.competition)}</span>
+        <span class="tag tag-green">Audience: ${e(d.audienceSize)}</span>
+        <span class="tag tag-purple">Avg Views: ${e(d.avgViews)}</span>
+        <span class="tag tag-blue">Top Age: ${e(d.topAgeRange)}</span>
+      </div>
+    </div>
+
+    <div class="quick-stats">
+      <div class="qs"><div class="qs-label">Growth Potential</div><div class="qs-val purple">${d.growthScore}<span style="font-size:14px;color:var(--text2)">/100</span></div><div class="qs-sub">Strong upward trend</div></div>
+      <div class="qs"><div class="qs-label">Beginner Friendly</div><div class="qs-val green">${d.beginnerScore}<span style="font-size:14px;color:var(--text2)">/100</span></div><div class="qs-sub">${d.beginnerScore > 70 ? 'Good for starters' : 'Needs experience'}</div></div>
+      <div class="qs"><div class="qs-label">Monetization</div><div class="qs-val gold">${d.monetizationScore}<span style="font-size:14px;color:var(--text2)">/100</span></div><div class="qs-sub">Strong earning potential</div></div>
+      <div class="qs"><div class="qs-label">Competition</div><div class="qs-val ${compColor}">${d.competitionScore}<span style="font-size:14px;color:var(--text2)">/100</span></div><div class="qs-sub">${e(d.competition)} competition</div></div>
+    </div>
+
+    <div class="content-card full" style="margin-bottom:16px">
+      <div class="cc-label"><span class="dot dot-purple"></span>Niche Scores</div>
+      <div class="cc-title">How This Niche Rates</div>
+      ${scoreBar('Growth Potential',       d.growthScore,       'purple')}
+      ${scoreBar('Monetization Potential', d.monetizationScore, 'gold')}
+      ${scoreBar('Beginner Friendly',      d.beginnerScore,     'green')}
+      ${scoreBar('Competition Level',      d.competitionScore,  'red')}
+    </div>
+
+    <div class="content-grid">
+      <div class="content-card full">
+        <div class="cc-label"><span class="dot dot-purple"></span>Content Ideas <span class="tier-badge tier-free" style="margin-left:8px">Free</span></div>
+        <div class="cc-title">3 Content Ideas to Get Started</div>
+        <ul class="ideas-list">${d.freeIdeas.map(i => `<li>${e(i)}</li>`).join('')}</ul>
+      </div>
+      <div class="content-card full">
+        <div class="cc-label"><span class="dot dot-green"></span>Trending Now <span class="tier-badge tier-free" style="margin-left:8px">Free</span></div>
+        <div class="cc-title">🔥 Hot Angle Right Now</div>
+        <div class="cc-body">${e(d.freeTrend)}</div>
+      </div>
+    </div>
+
+    <div class="content-grid" style="margin-bottom:16px">
+      <div class="content-card">
+        <div class="cc-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ff4444" aria-hidden="true" style="vertical-align:middle;margin-right:5px"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube</div>
+        <div class="cc-title">YouTube Potential</div>
+        <div class="cc-body">
+          <span class="tag tag-${ytColor}" style="margin-bottom:12px;display:inline-block">${e(d.youtube.potential)} Potential</span><br>
+          Growth Speed: <strong style="color:var(--text)">${e(d.youtube.growthSpeed)}</strong>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="cc-label"><svg width="11" height="13" viewBox="0 0 24 24" fill="#ff6b9d" aria-hidden="true" style="vertical-align:middle;margin-right:5px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.16 8.16 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg>TikTok</div>
+        <div class="cc-title">TikTok Potential</div>
+        <div class="cc-body">
+          <span class="tag tag-${ttColor}" style="margin-bottom:12px;display:inline-block">${e(d.tiktok.potential)} Potential</span><br>
+          Viral Chance: <strong style="color:var(--text)">${e(d.tiktok.viralChance)}</strong>
+        </div>
+      </div>
+    </div>
+
+    ${isPlus ? `
+    <div class="content-card full" style="margin-bottom:16px">
+      <div class="cc-label"><span class="dot dot-gold"></span>10 Content Ideas <span class="tier-badge tier-plus" style="margin-left:8px">✦ Plus</span></div>
+      <div class="cc-title">More Ideas to Build Your Channel</div>
+      <ul class="ideas-list">${d.plusIdeas.map(i => `<li>${e(i)}</li>`).join('')}</ul>
+    </div>
+    <div class="content-grid" style="margin-bottom:16px">
+      <div class="content-card">
+        <div class="cc-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="#ff4444" aria-hidden="true" style="vertical-align:middle;margin-right:5px"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube Deep Dive <span class="tier-badge tier-plus" style="margin-left:8px">✦ Plus</span></div>
+        <div class="cc-title">YouTube Strategy</div>
+        <div class="cc-body">
+          <strong style="color:var(--text)">Best Formats:</strong><br>
+          <ul class="ideas-list" style="margin:10px 0">${d.youtube.bestFormats.map(f => `<li>${e(f)}</li>`).join('')}</ul>
+          <strong style="color:var(--text)">Best Post Times:</strong><br>
+          <span>${e(d.youtube.bestPostTimes)}</span><br><br>
+          <strong style="color:var(--text)">Avg Monetization:</strong> ${e(d.youtube.avgMonetization)}
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="cc-label"><svg width="11" height="13" viewBox="0 0 24 24" fill="#ff6b9d" aria-hidden="true" style="vertical-align:middle;margin-right:5px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.16 8.16 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg>Short Form Strategy <span class="tier-badge tier-plus" style="margin-left:8px">✦ Plus</span></div>
+        <div class="cc-title">TikTok &amp; Instagram</div>
+        <div class="cc-body">
+          <strong style="color:var(--text)">TikTok Best Times:</strong> ${e(d.tiktok.bestPostTimes)}<br><br>
+          <strong style="color:var(--text)">TikTok Formats:</strong><br>
+          <ul class="ideas-list" style="margin:8px 0">${d.tiktok.bestFormats.slice(0, 2).map(f => `<li>${e(f)}</li>`).join('')}</ul>
+          <strong style="color:var(--text)">Instagram:</strong> ${e(d.instagram.reelsVsFeed)}
+        </div>
+      </div>
+    </div>
+    <div class="content-card full" style="margin-bottom:16px">
+      <div class="cc-label"><span class="dot dot-purple"></span>Sub-Niches <span class="tier-badge tier-plus" style="margin-left:8px">✦ Plus</span></div>
+      <div class="cc-title">Explore These Related Niches</div>
+      <div class="tags">${d.subNiches.map(s => `<span class="tag tag-purple">${e(s)}</span>`).join('')}</div>
+    </div>
+    ` : blurCard('plus', 'Full Platform Strategy (YT + TT + IG)', '📊', 'Posting times, best formats, viral strategy for all 3 platforms...', 'NicheLab Plus')}
+
+    ${isPro ? `
+    <div class="content-card full" style="margin-bottom:16px">
+      <div class="cc-label"><span class="dot dot-purple"></span>25 Video Title Ideas <span class="tier-badge tier-pro" style="margin-left:8px">◆ Pro</span></div>
+      <div class="cc-title">Ready-to-Use Video Titles</div>
+      <ul class="ideas-list">${d.proIdeas.slice(0, 25).map(i => `<li>${e(i)}</li>`).join('')}</ul>
+    </div>
+    <div class="content-grid" style="margin-bottom:16px">
+      <div class="content-card">
+        <div class="cc-label"><span class="dot dot-purple"></span>Viral Formula <span class="tier-badge tier-pro" style="margin-left:8px">◆ Pro</span></div>
+        <div class="cc-title">🔥 Why Videos Go Viral Here</div>
+        <div class="cc-body">${e(d.viralBreakdown)}</div>
+      </div>
+      <div class="content-card">
+        <div class="cc-label"><span class="dot dot-gold"></span>Revenue Estimate <span class="tier-badge tier-pro" style="margin-left:8px">◆ Pro</span></div>
+        <div class="cc-title">💰 How Much You Can Make</div>
+        <div class="cc-body">
+          <div style="font-size:22px;font-weight:700;color:var(--green);margin-bottom:8px">${e(d.revenueEstimate)}</div>
+          <strong style="color:var(--text)">Brand Deal Score: ${d.brandDealScore}/100</strong><br><br>
+          <strong style="color:var(--text)">Brand Types:</strong><br>
+          <div class="tags" style="margin-top:8px">${d.brandTypes.map(b => `<span class="tag tag-gold">${e(b)}</span>`).join('')}</div>
+        </div>
+      </div>
+    </div>
+    <div class="content-card full" style="margin-bottom:16px">
+      <div class="cc-label"><span class="dot dot-cyan"></span>SEO Keywords <span class="tier-badge tier-pro" style="margin-left:8px">◆ Pro</span></div>
+      <div class="cc-title">🔍 Use These in Your Titles &amp; Descriptions</div>
+      <div class="tags">${d.seoKeywords.map(k => `<span class="tag tag-blue">${e(k)}</span>`).join('')}</div>
+    </div>
+    <div class="content-card full" style="margin-bottom:16px">
+      <div class="cc-label"><span class="dot dot-purple"></span>Competitor Strategy <span class="tier-badge tier-pro" style="margin-left:8px">◆ Pro</span></div>
+      <div class="cc-title">🎯 How to Beat the Competition</div>
+      <div class="cc-body">${e(d.competitorTips)}</div>
+    </div>
+    <div class="content-card full" style="margin-bottom:16px">
+      <div class="cc-label"><span class="dot dot-green"></span>30-Day Content Calendar <span class="tier-badge tier-pro" style="margin-left:8px">◆ Pro</span></div>
+      <div class="cc-title">📅 Your First 30 Days, Planned Out</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px">
+        ${d.calendar.map(w => `
+          <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px">
+            <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple2);margin-bottom:6px">Week ${Number(w.week)}</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;margin-bottom:10px">${e(w.theme)}</div>
+            ${w.posts.map(p => `<div style="font-size:12px;color:var(--text2);padding:6px 0;border-bottom:1px solid var(--border)">${e(p)}</div>`).join('')}
+          </div>`).join('')}
+      </div>
+    </div>
+    ` : blurCard('pro', 'Full Pro Analysis (25 ideas, calendar, revenue, SEO)', '🚀', '25 video titles, 30-day calendar, revenue estimates, brand deals, SEO keywords...', 'NicheLab Pro')}
+
+    ${!isPro ? `
+    <div style="background:linear-gradient(135deg,rgba(124,92,252,0.12),rgba(59,130,246,0.08));border:1px solid rgba(124,92,252,0.25);border-radius:20px;padding:48px;text-align:center;margin-top:32px">
+      <div style="font-size:40px;margin-bottom:16px">🚀</div>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.5px;margin-bottom:12px">Get the Full Picture</h2>
+      <p style="color:var(--text2);max-width:480px;margin:0 auto 28px;line-height:1.7">Unlock everything — 25 video ideas, a 30-day content calendar, revenue estimates, brand deal scores, SEO keywords, and more.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="upgrade-btn gold-btn" onclick="showPage('pricing')" style="padding:12px 28px;font-size:14px">✦ Get Plus — $9.99/mo</button>
+        <button class="upgrade-btn" onclick="showPage('pricing')" style="padding:12px 28px;font-size:14px">◆ Get Pro — $24.99/mo</button>
+        <button class="upgrade-btn" onclick="showPage('pricing')" style="padding:12px 28px;font-size:14px;background:linear-gradient(135deg,var(--gold),var(--pink))">💎 Lifetime — $49.99</button>
+      </div>
+    </div>` : ''}
+  </div>`;
+
+  document.getElementById('results-content').innerHTML = html;
+
+  // FIX #5 — Score bar animation
+  // Double rAF ensures the browser commits width:0 to a paint frame
+  // before transitioning to the target width. Single rAF batches both
+  // writes into one frame and the CSS transition never fires.
+  setTimeout(() => {
+    document.querySelectorAll('.score-bar-fill').forEach(bar => {
+      const targetWidth = bar.style.width;
+      bar.style.width = '0%';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          bar.style.width = targetWidth;
+        });
+      });
+    });
+  }, 50);
+}
+</script>
+</body>
+</html>

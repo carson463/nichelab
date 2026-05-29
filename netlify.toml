@@ -1,0 +1,7 @@
+# netlify.toml
+# Routes clean /api/analyze path to the Netlify Function
+[[redirects]]
+  from   = "/api/analyze"
+  to     = "/.netlify/functions/analyze"
+  status = 200
+  force  = true
