@@ -1,5 +1,9 @@
 # netlify.toml
 # Routes clean /api/analyze path to the Netlify Function
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
 [[redirects]]
   from   = "/api/analyze"
   to     = "/.netlify/functions/analyze"
